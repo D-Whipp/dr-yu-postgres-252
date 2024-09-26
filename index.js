@@ -29,11 +29,11 @@ db.query('SELECT * FROM capitals', (err, res) => {
 const app = express();
 const port = 3000;
 
-let quiz = [
-  { country: 'France', capital: 'Paris' },
-  { country: 'United Kingdom', capital: 'London' },
-  { country: 'United States of America', capital: 'New York' },
-];
+// let quiz = [
+//   { country: 'France', capital: 'Paris' },
+//   { country: 'United Kingdom', capital: 'London' },
+//   { country: 'United States of America', capital: 'New York' },
+// ];
 
 let totalCorrect = 0;
 
