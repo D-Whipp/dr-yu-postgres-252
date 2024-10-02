@@ -1,5 +1,14 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import 'dotenv/config';
+import pg from 'pg';
+
+const db = new pg.Client({
+  user: process.env.POSTGRES_USER,
+  host: process.env.POSTGRES_HOST,
+  database: process.env.POSTGRES_DB,
+  password: process.env.POSTGRES_PASSWORD,
+});
 
 const app = express();
 const port = 3000;
