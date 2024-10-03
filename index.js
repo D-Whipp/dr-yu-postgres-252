@@ -10,8 +10,22 @@ const db = new pg.Client({
   password: process.env.POSTGRES_PASSWORD,
 });
 
+db.connect();
+
+db.query('SELECT * FROM flags', (err, res) => {
+  if (err) {
+    console.log('Error executing query', err.stack);
+  } else {
+    quiz = res.rows;
+  }
+
+  db.end();
+});
+
 const app = express();
 const port = 3000;
+
+let quiz = [];
 
 let totalCorrect = 0;
 
@@ -25,7 +39,7 @@ let currentQuestion = {};
 app.get('/', (req, res) => {
   totalCorrect = 0;
   nextQuestion();
-  console.log(currentQuestion);
+  console.log('Current Question: ', currentQuestion);
   res.render('index.ejs', { question: currentQuestion });
 });
 
@@ -33,9 +47,7 @@ app.get('/', (req, res) => {
 app.post('/submit', (req, res) => {
   let answer = req.body.answer.trim();
   let isCorrect = false;
-  if (
-    currentQuestion.capital.toLowerCase() === answer.toLowerCase()
-  ) {
+  if (currentQuestion.name.toLowerCase() === answer.toLowerCase()) {
     totalCorrect++;
     console.log(totalCorrect);
     isCorrect = true;
